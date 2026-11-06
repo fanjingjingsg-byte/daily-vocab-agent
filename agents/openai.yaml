@@ -1,0 +1,5 @@
+interface:
+  display_name: "双 Bot 英语词汇助手"
+  short_description: "翻译英文并提取四级以上词汇，自动更新词汇 App"
+  default_prompt: "Use $daily-vocab-agent to translate this English text or image, extract CET-4-and-above vocabulary, and add it to 日常积累."
+
