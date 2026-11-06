@@ -38,6 +38,14 @@ Do not change an existing entry's ID, because user favorites or learning progres
 - For an existing target entry, update `meaning`, `ipa`, `speech`, and `updatedAt` from the newly verified source.
 - After filtering, sort by `updatedAt` descending. Put undated legacy entries after dated entries while retaining their original relative order.
 
+## Ordering release invariant
+
+- Generate one batch timestamp at the start of an import and write it to every added or updated entry.
+- Re-read the saved data and assert that every handoff term exists with a non-empty `updatedAt`, then compute the expected sorted order. Parsing and building alone do not prove correctness.
+- Do not invent dates for legacy entries whose ingestion batch cannot be established. Repair missing dates only when the current handoff list or stable IDs identify the affected batch reliably.
+- When the app uses a Service Worker or another offline cache, bump its cache version whenever vocabulary data changes so installed clients discard stale app data.
+- After deployment, open the live app, select the target track, and compare the first visible terms with the current handoff order. If they differ, inspect timestamps, the sort comparator, and caching before reporting completion.
+
 ## Bot handoff
 
 Bot 1 must send only verified vocabulary entries to Bot 2. JSON is preferred. For spreadsheet handoff, use the exact headers `英文单词`, `中文释义`, and `音标`.

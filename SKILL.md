@@ -27,11 +27,13 @@ Bot 1 must deliver the Chinese translation, a readable table, and structured han
 Pass Bot 1's structured data to a second independent sub-agent when available. Do not ask the user to forward the table manually. Bot 2 updates the configured app without reinterpreting the source text.
 
 1. Use `日常积累` as the default track and category unless the user specifies another destination.
-2. Deduplicate within the target track using a trimmed, case-insensitive English term. Update an existing entry's meaning, IPA, speech text, and `updatedAt`; do not create a duplicate card.
+2. Deduplicate within the target track using a trimmed, case-insensitive English term. Generate one ISO timestamp for the batch and write it to every added or updated entry's `updatedAt`; do not create a duplicate card.
 3. New entries must preserve the app's existing schema and include a stable unique ID plus `term`, `meaning`, `ipa`, `speech`, `category`, `track`, and an ISO `updatedAt` value.
 4. Display target-track entries by `updatedAt` descending. Dated entries appear before legacy undated entries; preserve the relative order of legacy entries.
-5. Build and validate the existing app, then update the existing hosting project. Do not create a second site unless the user explicitly asks.
-6. Report the extracted, added, updated, and skipped counts; the target category; and the resulting app link.
+5. Re-read the saved data and verify that every batch entry has the batch timestamp and sorts to the beginning of the target track. Do not publish when this invariant fails.
+6. Build and validate the existing app, update any PWA/offline cache version used by the app, then update the existing hosting project. Do not create a second site unless the user explicitly asks.
+7. After publication, open the live app, select the target track, and verify that the first visible terms match the current batch. A successful build alone is not sufficient.
+8. Report the extracted, added, updated, and skipped counts; the target category; the live ordering check; and the resulting app link.
 
 ## Interaction rules
 

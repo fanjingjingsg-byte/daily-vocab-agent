@@ -7,6 +7,8 @@ A reusable Codex skill that coordinates two sequential bots:
 
 Each vocabulary record contains an English term, a context-appropriate Chinese meaning, and IPA. Newly updated entries are ordered before older entries by update time.
 
+The workflow also enforces a release check: every imported entry receives a batch timestamp, offline caches are versioned when data changes, and the live target list is opened after deployment to confirm the new batch appears first.
+
 ## Install
 
 Copy this repository into your personal Codex skills directory, then start a new Codex chat:
